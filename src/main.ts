@@ -27,7 +27,10 @@ if (!appElement) {
 
 const app = appElement;
 
-const forestBackground = `${import.meta.env.BASE_URL}images/animal-detective-bg.png`;
+const forestBackground = new URL(
+  `${import.meta.env.BASE_URL}images/animal-detective-bg.png`,
+  document.baseURI,
+).href;
 document.documentElement.style.setProperty('--forest-background', `url("${forestBackground}")`);
 
 let state: GameState = createHomeState();
