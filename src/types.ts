@@ -14,6 +14,8 @@ export type QuestionCategory =
   | 'reproduction'
   | 'lifeHistory';
 
+export type FeatureType = 'classification' | 'individual';
+
 export type LevelId = 1 | 2 | 3;
 
 export type FeatureKey =
@@ -41,7 +43,73 @@ export type FeatureKey =
   | 'canFly'
   | 'juvenileAquatic'
   | 'adultMostlyLand'
-  | 'hasMetamorphosis';
+  | 'hasMetamorphosis'
+  | 'isNocturnal'
+  | 'cannotFly'
+  | 'swimsWell'
+  | 'hasWebbedFeet'
+  | 'changesColour'
+  | 'climbsWell'
+  | 'runsFast'
+  | 'mainlyMarine'
+  | 'hasTailAsAdult'
+  | 'jumpsWell'
+  | 'longBody'
+  | 'noLegs'
+  | 'hasLargeHindLegs'
+  | 'canInflateBody'
+  | 'uprightSwimming'
+  | 'hasFlippers'
+  | 'hasDorsalFin'
+  | 'hasLongNeck'
+  | 'buildsNest'
+  | 'livesInColony'
+  | 'hasFourWings'
+  | 'hasHardForewings'
+  | 'hasStripedPattern'
+  | 'hasCurledTail'
+  | 'livesInFreshwater'
+  | 'hasBumpySkin'
+  | 'usesEcholocation'
+  | 'hasLargeEyes'
+  | 'hasLongProboscis'
+  | 'hasSpinesWhenInflated'
+  | 'livesWithSeaAnemone'
+  | 'hasLongTail'
+  | 'hasMandibles'
+  | 'hasBlowhole'
+  | 'hasVeryLargeBody'
+  | 'hasWhiskers'
+  | 'hasNarrowWaist'
+  | 'hasColourfulWings'
+  | 'hasCoiledProboscis'
+  | 'hasStinger'
+  | 'hasHairyBody'
+  | 'hasTransparentWings'
+  | 'hasSlenderAbdomen'
+  | 'hasRoundedHardBody'
+  | 'hasSlenderBody'
+  | 'hasLongLegs'
+  | 'hasFanShapedTail'
+  | 'hasRoundedBody'
+  | 'hasStreamlinedBody'
+  | 'hasHorseShapedHead'
+  | 'hasIndistinctPairedFins'
+  | 'hasRoundBodyWhenInflated'
+  | 'hasSmallBody'
+  | 'hasShortBeak'
+  | 'hasComb'
+  | 'groundDwelling'
+  | 'hasFlatBroadBeak'
+  | 'hasForwardFacingEyes'
+  | 'hasGraspingHands'
+  | 'hasSkinMembraneWings'
+  | 'jumpsOutOfWater'
+  | 'hasLongSnout'
+  | 'hasStrongTail'
+  | 'hasStickyTongue'
+  | 'hasGraspingFeet'
+  | 'hasStockyBody';
 
 export type TraitSet = Record<FeatureKey, boolean>;
 
@@ -70,6 +138,7 @@ export interface QuestionDefinition {
   id: FeatureKey;
   text: string;
   category: QuestionCategory;
+  featureType: FeatureType;
   score: 0 | 1 | 2;
   keywords: string[];
 }

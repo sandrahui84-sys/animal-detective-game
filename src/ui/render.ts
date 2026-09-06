@@ -71,6 +71,72 @@ const questionIconById: Record<string, string> = {
   livesInWater: '🌊',
   canSwim: '🏊',
   canFly: '💨',
+  isNocturnal: '🌙',
+  cannotFly: '🪽',
+  swimsWell: '🏊',
+  hasWebbedFeet: '🦆',
+  changesColour: '🎨',
+  climbsWell: '🧗',
+  runsFast: '💨',
+  mainlyMarine: '🌊',
+  hasTailAsAdult: '🦎',
+  jumpsWell: '🦘',
+  longBody: '〰️',
+  noLegs: '🐍',
+  hasLargeHindLegs: '🦵',
+  canInflateBody: '🎈',
+  uprightSwimming: '🐴',
+  hasFlippers: '🐬',
+  hasDorsalFin: '🦈',
+  hasLongNeck: '🦒',
+  buildsNest: '🪺',
+  livesInColony: '🏘️',
+  hasFourWings: '🦋',
+  hasHardForewings: '🪲',
+  hasStripedPattern: '〰️',
+  hasCurledTail: '➰',
+  livesInFreshwater: '💧',
+  hasBumpySkin: '🟤',
+  usesEcholocation: '📡',
+  hasLargeEyes: '👀',
+  hasLongProboscis: '🦟',
+  hasSpinesWhenInflated: '🦔',
+  livesWithSeaAnemone: '🌸',
+  hasLongTail: '➰',
+  hasMandibles: '🦷',
+  hasBlowhole: '💦',
+  hasVeryLargeBody: '🐋',
+  hasWhiskers: '〰️',
+  hasNarrowWaist: '〰️',
+  hasColourfulWings: '🎨',
+  hasCoiledProboscis: '➰',
+  hasStinger: '📍',
+  hasHairyBody: '🧶',
+  hasTransparentWings: '🪽',
+  hasSlenderAbdomen: '〰️',
+  hasRoundedHardBody: '🪲',
+  hasSlenderBody: '〰️',
+  hasLongLegs: '🦵',
+  hasFanShapedTail: '🪭',
+  hasRoundedBody: '⚪',
+  hasStreamlinedBody: '🐟',
+  hasHorseShapedHead: '🐴',
+  hasIndistinctPairedFins: '🐟',
+  hasRoundBodyWhenInflated: '🎈',
+  hasSmallBody: '🔹',
+  hasShortBeak: '🐦',
+  hasComb: '🐔',
+  groundDwelling: '🌱',
+  hasFlatBroadBeak: '🦆',
+  hasForwardFacingEyes: '👀',
+  hasGraspingHands: '🖐️',
+  hasSkinMembraneWings: '🪽',
+  jumpsOutOfWater: '🌊',
+  hasLongSnout: '🐊',
+  hasStrongTail: '➰',
+  hasStickyTongue: '👅',
+  hasGraspingFeet: '🦶',
+  hasStockyBody: '🟤',
 };
 
 const starterDisplayQuestionIds = [
@@ -150,9 +216,9 @@ export function renderHome(state: GameState): string {
     <section class="home-hero panel-glass">
       <div class="hero-copy">
         <span class="eyebrow"><span class="eyebrow-dot"></span> LPMS・動物分類任務</span>
-        <h1>🔍 動物偵探王<br /><em>4問破解動物身份</em></h1>
+        <h1>🔍 動物偵探王<br /><em>5問破解動物身份</em></h1>
         <p class="hero-subtitle">運用動物的關鍵特徵，找出牠屬於哪一類！</p>
-        <p class="hero-question">你能在 4 個問題內找出秘密動物嗎？</p>
+        <p class="hero-question">你能在 5 個問題內找出秘密動物嗎？</p>
         <p class="hero-intro">不要只看牠住在哪裏、會不會飛。<br />問對問題，才可以找到真正重要的科學證據。</p>
         <div class="hero-actions">
           <button class="primary-button" data-action="scroll-to-levels">
@@ -161,8 +227,8 @@ export function renderHome(state: GameState): string {
           <span class="action-hint">先選任務難度，再開始調查</span>
         </div>
       </div>
-      <div class="hero-stamp" aria-label="每局最多四條線索">
-        <span class="stamp-icon" aria-hidden="true">4</span>
+      <div class="hero-stamp" aria-label="每局最多五條線索">
+        <span class="stamp-icon" aria-hidden="true">5</span>
         <strong>次提問機會</strong>
         <small>揪出秘密動物</small>
       </div>
@@ -172,7 +238,7 @@ export function renderHome(state: GameState): string {
     <section class="stats-strip" aria-label="遊戲資料">
       <div><strong>🐾 32</strong><span>種動物</span></div>
       <div><strong>🧩 6</strong><span>大類別</span></div>
-      <div><strong>❤️ 4</strong><span>次提問</span></div>
+      <div><strong>❤️ 5</strong><span>次提問</span></div>
     </section>
 
     <section class="section-block" aria-labelledby="levels-title">
@@ -217,7 +283,7 @@ const renderChatHistory = (state: GameState): string => {
       <div class="chat-turn chat-turn-welcome chat-latest">
         <div class="chat-line assistant-line">
           <span class="chat-avatar" aria-hidden="true">🤖</span>
-          <div class="chat-copy"><small>動物偵探助手</small><p>我已經選定了一隻動物！<br />你有 4 次機會問「是／不是」問題。<br />請利用動物的特徵來推理！</p></div>
+          <div class="chat-copy"><small>動物偵探助手</small><p>我已經選定了一隻動物！<br />你有 5 次機會問「是／不是」問題。<br />請利用動物的特徵來推理！</p></div>
         </div>
       </div>
     `;
@@ -284,12 +350,14 @@ const renderCategoryTabs = (state: GameState): string => {
 };
 
 const renderLevelTwoQuestions = (state: GameState): string => {
-  const questions = questionDefinitions.filter((question) => question.category === state.activeQuestionCategory);
+  const questions = questionDefinitions.filter((question) =>
+    question.category === state.activeQuestionCategory && question.featureType === 'classification',
+  );
   return `${renderCategoryTabs(state)}<div class="selected-category-label"><span>${questionCategoryEmojis[state.activeQuestionCategory]}</span>${questionCategoryLabels[state.activeQuestionCategory]}問題</div><div class="question-grid">${questions.map((question) => questionButton(question.id, state)).join('')}</div>`;
 };
 
 const renderFreeQuestion = (state: GameState): string => `
-  <div class="question-intro"><span class="question-intro-icon">🧠</span><div><strong>自己提出一條「是／不是」問題 <span class="question-tip">（先用動物獨有特徵提問）</span></strong><p>程式會找出你問到的已知特徵；無法理解的問題不會扣次數。</p></div></div>
+  <div class="question-intro"><span class="question-intro-icon">🧠</span><div><strong>自己提出一條「是／不是」問題 <span class="question-tip">（先用動物獨有特徵提問）</span></strong><p>可問分類或個體特徵；無法理解的問題不會扣次數。</p></div></div>
   <form class="free-question-form" data-form="free-question">
     <label for="free-question-input">你的問題</label>
     <div class="input-row">
@@ -300,6 +368,23 @@ const renderFreeQuestion = (state: GameState): string => `
   </form>
   ${state.inputMessage ? `<div class="inline-message ${state.responseText.includes('聽不懂') || state.inputMessage.includes('未能') ? 'message-warn' : ''}" role="status">💬 ${escapeHtml(state.inputMessage)}</div>` : ''}
 `;
+
+const renderIndividualStrategyHint = (state: GameState): string => {
+  const latestAnswer = state.answers[state.answers.length - 1];
+  if (!latestAnswer || state.inputMessage) {
+    return '';
+  }
+
+  const latestQuestion = questionById[latestAnswer.questionId];
+  const remainingCandidates = getRemainingCandidates(animals, state.answers);
+  const categoryIds = new Set(remainingCandidates.map((animal) => animal.category));
+
+  if (latestQuestion?.featureType !== 'individual' || categoryIds.size <= 1) {
+    return '';
+  }
+
+  return '<div class="strategy-hint" role="status">💬 這是一條有效線索。若想更快縮小範圍，可以先問動物的分類特徵。</div>';
+};
 
 const renderOtherQuestion = (state: GameState): string => {
   const remaining = remainingQuestions(state);
@@ -355,6 +440,7 @@ const renderQuestionZone = (state: GameState): string => {
       <div class="panel-heading"><div><span class="section-kicker">調查白板</span><h2 id="question-panel-title">提出你的問題${state.level === 1 || state.level === 2 ? ' <span class="question-panel-tip">（先用動物的獨有特徵提問）</span>' : ''}</h2></div><span class="points-legend"><span class="legend-dot high"></span>關鍵特徵 +2 <span class="legend-dot normal"></span>一般線索 +1</span></div>
       ${content}
       ${renderOtherQuestion(state)}
+      ${renderIndividualStrategyHint(state)}
       ${state.level !== 3 && state.inputMessage ? `<div class="inline-message" role="status">💬 ${escapeHtml(state.inputMessage)}</div>` : ''}
       <button class="guess-cta ${state.isGuessing ? 'is-open' : ''}" data-action="open-guess" ${state.isGuessing ? 'disabled' : ''}>
         <span class="guess-bulb" aria-hidden="true">💡</span><span><strong>${remainingQuestions(state) === 0 ? '開始作答' : '我知道答案了！'}</strong><small>${remainingQuestions(state) === 0 ? '問題已用完，現在揭開你的推理' : '任何時候都可以進入作答區'}</small></span><span class="guess-arrow" aria-hidden="true">→</span>
@@ -372,7 +458,7 @@ const renderGuessPanel = (state: GameState): string => {
   const canSubmit = Boolean(state.selectedAnimalId && state.selectedCategoryId);
   return `
     <section id="guess-panel" class="guess-panel panel-card" aria-labelledby="guess-panel-title">
-      <div class="guess-panel-heading"><div><span class="section-kicker">最後推理</span><h2 id="guess-panel-title">揭開你的推理答案</h2></div>${remainingQuestions(state) > 0 ? '<button class="subtle-button" data-action="close-guess">繼續查線索</button>' : '<span class="time-up-pill">4 問完成</span>'}</div>
+      <div class="guess-panel-heading"><div><span class="section-kicker">最後推理</span><h2 id="guess-panel-title">揭開你的推理答案</h2></div>${remainingQuestions(state) > 0 ? '<button class="subtle-button" data-action="close-guess">繼續查線索</button>' : '<span class="time-up-pill">5 問完成</span>'}</div>
       <p class="guess-panel-lead">要同時答對秘密動物和牠的分類，才算完成任務。想清楚哪些特徵最重要！</p>
       <div class="guess-step">
         <div class="step-badge">A</div>
@@ -403,7 +489,8 @@ const renderGuessPanel = (state: GameState): string => {
 };
 
 const renderCandidates = (state: GameState): string => {
-  const remainingCandidateCount = getRemainingCandidates(animals, state.answers).length;
+  const remainingCandidates = getRemainingCandidates(animals, state.answers);
+  const remainingCandidateCount = remainingCandidates.length;
   const candidateHint = remainingCandidateCount <= 4
     ? '💡 已經非常接近答案了！'
     : remainingCandidateCount <= 8
@@ -413,6 +500,7 @@ const renderCandidates = (state: GameState): string => {
   return `
     <section class="candidate-panel panel-card" aria-labelledby="candidate-title">
       <div class="panel-heading candidate-heading"><div><span class="section-kicker">偵探筆記</span><h2 id="candidate-title">🐾 候選動物</h2></div><div class="candidate-heading-right"><div class="candidate-count">剩餘候選：<strong>${remainingCandidateCount}</strong></div><div class="candidate-legend"><span class="legend-cross">×</span>淡色代表已排除，保留作為推理紀錄</div></div></div>
+      ${remainingCandidates.length > 0 && new Set(remainingCandidates.map((animal) => animal.category)).size === 1 ? `<div class="category-lock-note" role="status"><strong>🎯 已鎖定分類：${categoryById[remainingCandidates[0].category].label}</strong><p>現在可以利用生活習性、外形或行為特徵，找出真正的秘密動物！</p></div>` : ''}
       <div class="candidate-grid">
         ${animals.map((animal) => {
           const eliminated = isCandidateEliminated(animal, state.answers);
@@ -435,7 +523,7 @@ export function renderGame(state: GameState): string {
     ${renderHeader(true)}
     <div class="game-topbar">
       <button class="back-button" data-action="home"><span aria-hidden="true">←</span> 返回任務選擇</button>
-      <div class="game-title"><span class="game-title-mark" aria-hidden="true">🧭</span><span>4問破解動物身份</span></div>
+      <div class="game-title"><span class="game-title-mark" aria-hidden="true">🧭</span><span>5問破解動物身份</span></div>
       <div class="game-meta"><span class="level-pill">Level ${state.level}・${levelNames[state.level]}</span></div>
     </div>
     <section class="game-intro panel-glass">
@@ -508,7 +596,7 @@ export function renderResult(state: GameState): string {
           <div class="reveal-animal"><span class="reveal-emoji" aria-hidden="true">${secretAnimal.emoji}</span><div><span class="reveal-label">秘密動物是</span><h2>${secretAnimal.name}</h2><p>${category.tagline}</p></div></div>
           <div class="evidence-box"><div class="evidence-heading"><span>🔬</span><strong>關鍵證據</strong><small>${secretAnimal.evidence.length} 條線索</small></div><ul>${secretAnimal.evidence.map((evidence) => `<li><span aria-hidden="true">✓</span>${evidence}</li>`).join('')}</ul></div>
         </article>
-        <aside class="score-result-card panel-card"><span class="section-kicker">你的調查紀錄</span><h2>推理分</h2><div class="big-score"><strong>${state.score}</strong><span>/ 8</span></div><p>${scoreMessage(state.score)}</p><div class="result-stat-row"><span>已用問題</span><strong>${state.askedQuestionIds.length} / ${TOTAL_QUESTIONS}</strong></div><div class="result-stat-row"><span>剩餘候選</span><strong>${getRemainingCandidates(animals, state.answers).length} 種</strong></div></aside>
+        <aside class="score-result-card panel-card"><span class="section-kicker">你的調查紀錄</span><h2>推理分</h2><div class="big-score"><strong>${state.score}</strong><span>/ ${TOTAL_QUESTIONS * 2}</span></div><p>${scoreMessage(state.score)}</p><div class="result-stat-row"><span>已用問題</span><strong>${state.askedQuestionIds.length} / ${TOTAL_QUESTIONS}</strong></div><div class="result-stat-row"><span>剩餘候選</span><strong>${getRemainingCandidates(animals, state.answers).length} 種</strong></div></aside>
       </section>
       <section class="explanation-card panel-card">
         <div class="explanation-heading"><span class="explanation-icon" aria-hidden="true">💡</span><div><span class="section-kicker">為甚麼是這一類？</span><h2>分類解說</h2></div></div>

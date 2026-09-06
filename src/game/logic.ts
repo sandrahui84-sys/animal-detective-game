@@ -1,4 +1,7 @@
+import { animals } from '../data/animals';
+import { categoryById } from '../data/categories';
 import { questionById, questionIsNegated, matchQuestionText } from '../data/questions';
+import { getRemainingCandidates } from './candidates';
 import type {
   Animal,
   AnsweredQuestion,
@@ -12,7 +15,7 @@ import type {
 } from '../types';
 import { pointsForQuestion } from './scoring';
 
-export const TOTAL_QUESTIONS = 4;
+export const TOTAL_QUESTIONS = 5;
 
 export function createHomeState(): GameState {
   return {
@@ -48,7 +51,7 @@ export function createGameState(level: LevelId, secretAnimal: Animal): GameState
     selectedLevel: level,
     level,
     secretAnimal,
-    responseText: '我已經選定了一隻動物！\n你有 4 次機會問「是／不是」問題。\n請利用動物的特徵來推理！',
+    responseText: '我已經選定了一隻動物！\n你有 5 次機會問「是／不是」問題。\n請利用動物的特徵來推理！',
     responseMeta: '準備好就開始調查吧！',
   };
 }
@@ -73,7 +76,7 @@ export function askDefinedQuestion(
     return {
       ...state,
       isGuessing: true,
-      inputMessage: '4 次問題已經用完，現在請選出你的答案吧！',
+      inputMessage: '5 次問題已經用完，現在請選出你的答案吧！',
     };
   }
 
@@ -112,6 +115,19 @@ export interface FreeQuestionResult {
   matchedQuestion: QuestionDefinition | null;
 }
 
+function invalidQuestionMessage(state: GameState): string {
+  const remainingCandidates = getRemainingCandidates(animals, state.answers);
+  const categoryIds = new Set(remainingCandidates.map((animal) => animal.category));
+
+  if (remainingCandidates.length > 0 && categoryIds.size === 1) {
+    const categoryId = remainingCandidates[0]?.category;
+    const categoryLabel = categoryId ? categoryById[categoryId].label : '這一類動物';
+    return `這個問題未能幫助找出個別動物。🎯 已鎖定分類：${categoryLabel}！請改問動物的外形、行為或生活習性。`;
+  }
+
+  return '這個問題未能幫助判斷分類，請改問動物的身體特徵、呼吸方式或育幼方式。';
+}
+
 export function askFreeQuestion(state: GameState, input: string): FreeQuestionResult {
   const trimmedInput = input.trim();
   const question = matchQuestionText(trimmedInput);
@@ -120,7 +136,7 @@ export function askFreeQuestion(state: GameState, input: string): FreeQuestionRe
     return {
       state: {
         ...state,
-        inputMessage: '這個問題未能幫助判斷分類，請改問動物的身體特徵、呼吸方式或育幼方式。',
+        inputMessage: invalidQuestionMessage(state),
         responseText: '我聽不懂這個分類問題。',
         responseMeta: '試試問「牠有羽毛嗎？」或「牠用肺呼吸嗎？」',
       },
@@ -149,7 +165,7 @@ export function askFreeQuestion(state: GameState, input: string): FreeQuestionRe
       state: {
         ...state,
         isGuessing: true,
-        inputMessage: '4 次問題已經用完，現在請選出你的答案吧！',
+        inputMessage: '5 次問題已經用完，現在請選出你的答案吧！',
       },
       matchedQuestion: question,
     };
@@ -158,17 +174,13 @@ export function askFreeQuestion(state: GameState, input: string): FreeQuestionRe
   const nextState = askDefinedQuestion(state, question);
   const answer = Boolean(normalizedAnswer);
 
-  // Free-form questions may use a negative form such as 「沒有羽毛嗎？」.
-  // Replace the answer recorded by askDefinedQuestion if the wording reverses it.
-  if (answer === nextState.answers[nextState.answers.length - 1]?.answer) {
-    return { state: nextState, matchedQuestion: question };
-  }
-
   const lastAnswerIndex = nextState.answers.length - 1;
   const updatedAnswers = nextState.answers.map((record, index) =>
-    index === lastAnswerIndex ? { ...record, answer } : record,
+    index === lastAnswerIndex ? { ...record, answer, askedText: trimmedInput } : record,
   );
 
+  // Free-form questions may use a negative form such as 「沒有羽毛嗎？」.
+  // Keep the student's wording in the chat while recording the matched feature answer.
   return {
     state: {
       ...nextState,

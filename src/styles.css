@@ -3682,3 +3682,53 @@ button:disabled {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Phase 5: individual-feature reasoning guidance */
+.category-lock-note,
+.strategy-hint {
+  border-radius: 15px;
+  overflow-wrap: anywhere;
+}
+
+.category-lock-note {
+  background: linear-gradient(135deg, rgba(255, 248, 214, 0.94), rgba(238, 255, 245, 0.94));
+  border: 1px solid rgba(218, 174, 55, 0.45);
+  margin: 18px 0;
+  padding: 14px 17px;
+}
+
+.category-lock-note strong {
+  color: var(--teal-dark);
+  display: block;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.category-lock-note p {
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 3px 0 0;
+}
+
+.strategy-hint {
+  background: rgba(232, 250, 243, 0.92);
+  border: 1px solid rgba(32, 126, 112, 0.18);
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 14px;
+  padding: 11px 14px;
+}
+
+@media (max-width: 520px) {
+  .category-lock-note {
+    margin: 15px 0;
+    padding: 12px 13px;
+  }
+
+  .category-lock-note strong,
+  .strategy-hint {
+    font-size: 15px;
+  }
+}
