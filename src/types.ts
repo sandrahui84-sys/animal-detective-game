@@ -100,6 +100,7 @@ export interface GameState {
   score: number;
   activeQuestionCategory: QuestionCategory;
   isGuessing: boolean;
+  isOtherQuestionOpen: boolean;
   selectedAnimalId: string | null;
   selectedCategoryId: CategoryId | null;
   inputMessage: string;

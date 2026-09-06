@@ -301,6 +301,48 @@ const renderFreeQuestion = (state: GameState): string => `
   ${state.inputMessage ? `<div class="inline-message ${state.responseText.includes('聽不懂') || state.inputMessage.includes('未能') ? 'message-warn' : ''}" role="status">💬 ${escapeHtml(state.inputMessage)}</div>` : ''}
 `;
 
+const renderOtherQuestion = (state: GameState): string => {
+  const remaining = remainingQuestions(state);
+  const available = (state.level === 1 || state.level === 2)
+    && remaining > 0
+    && remaining <= 2
+    && !state.isGuessing;
+
+  if (!available) {
+    return '';
+  }
+
+  if (!state.isOtherQuestionOpen) {
+    return `
+      <button class="other-question-trigger" type="button" data-action="open-other-question">
+        <span class="other-question-trigger-icon" aria-hidden="true">✍️</span>
+        <span class="other-question-trigger-copy"><strong>其他：自己輸入問題</strong><small>還有 ${remaining} 問，可以用自己的說法找更細的線索</small></span>
+        <span class="other-question-trigger-arrow" aria-hidden="true">→</span>
+      </button>
+    `;
+  }
+
+  return `
+    <div class="other-question-editor">
+      <div class="other-question-editor-heading">
+        <div class="other-question-editor-title">
+          <span class="other-question-editor-icon" aria-hidden="true">✍️</span>
+          <div><strong>其他：自己輸入一條「是／不是」問題</strong><p>試試問一個能分辨動物的獨有特徵。</p></div>
+        </div>
+        <button class="subtle-button" type="button" data-action="close-other-question">返回選擇問題</button>
+      </div>
+      <form class="free-question-form" data-form="free-question">
+        <label for="free-question-input">你的問題</label>
+        <div class="input-row">
+          <input id="free-question-input" name="question" type="text" autocomplete="off" placeholder="例如：牠有羽毛嗎？" aria-describedby="free-question-hint" />
+          <button class="primary-button small-button" type="submit">送出問題 <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="hint-chips" id="free-question-hint"><span>身體表面</span><span>呼吸方式</span><span>育幼方式</span></div>
+      </form>
+    </div>
+  `;
+};
+
 const renderQuestionZone = (state: GameState): string => {
   const content = state.level === 1
     ? renderStarterQuestions(state)
@@ -310,8 +352,9 @@ const renderQuestionZone = (state: GameState): string => {
 
   return `
     <section class="question-panel panel-card" aria-labelledby="question-panel-title">
-      <div class="panel-heading"><div><span class="section-kicker">調查白板</span><h2 id="question-panel-title">提出你的問題</h2></div><span class="points-legend"><span class="legend-dot high"></span>關鍵特徵 +2 <span class="legend-dot normal"></span>一般線索 +1</span></div>
+      <div class="panel-heading"><div><span class="section-kicker">調查白板</span><h2 id="question-panel-title">提出你的問題${state.level === 1 || state.level === 2 ? ' <span class="question-panel-tip">（先用動物的獨有特徵提問）</span>' : ''}</h2></div><span class="points-legend"><span class="legend-dot high"></span>關鍵特徵 +2 <span class="legend-dot normal"></span>一般線索 +1</span></div>
       ${content}
+      ${renderOtherQuestion(state)}
       ${state.level !== 3 && state.inputMessage ? `<div class="inline-message" role="status">💬 ${escapeHtml(state.inputMessage)}</div>` : ''}
       <button class="guess-cta ${state.isGuessing ? 'is-open' : ''}" data-action="open-guess" ${state.isGuessing ? 'disabled' : ''}>
         <span class="guess-bulb" aria-hidden="true">💡</span><span><strong>${remainingQuestions(state) === 0 ? '開始作答' : '我知道答案了！'}</strong><small>${remainingQuestions(state) === 0 ? '問題已用完，現在揭開你的推理' : '任何時候都可以進入作答區'}</small></span><span class="guess-arrow" aria-hidden="true">→</span>

@@ -7,7 +7,9 @@ import {
   closeGuessPanel,
   createGameState,
   createHomeState,
+  closeOtherQuestion,
   openGuessPanel,
+  openOtherQuestion,
   selectAnimalGuess,
   selectCategoryGuess,
   setActiveQuestionCategory,
@@ -101,6 +103,15 @@ app.addEventListener('click', (event) => {
       render();
       break;
     }
+    case 'open-other-question':
+      state = openOtherQuestion(state);
+      render();
+      document.querySelector<HTMLInputElement>('#free-question-input')?.focus();
+      break;
+    case 'close-other-question':
+      state = closeOtherQuestion(state);
+      render();
+      break;
     case 'ask-question': {
       const questionId = element.dataset.questionId;
       if (questionId && questionById[questionId as keyof typeof questionById]) {

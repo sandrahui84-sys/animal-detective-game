@@ -25,6 +25,7 @@ export function createHomeState(): GameState {
     score: 0,
     activeQuestionCategory: 'body',
     isGuessing: false,
+    isOtherQuestionOpen: false,
     selectedAnimalId: null,
     selectedCategoryId: null,
     inputMessage: '',
@@ -183,6 +184,14 @@ export function setActiveQuestionCategory(
   category: QuestionCategory,
 ): GameState {
   return { ...state, activeQuestionCategory: category, inputMessage: '' };
+}
+
+export function openOtherQuestion(state: GameState): GameState {
+  return { ...state, isOtherQuestionOpen: true, inputMessage: '' };
+}
+
+export function closeOtherQuestion(state: GameState): GameState {
+  return { ...state, isOtherQuestionOpen: false, inputMessage: '' };
 }
 
 export function openGuessPanel(state: GameState): GameState {
